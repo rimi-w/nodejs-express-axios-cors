@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 서버로부터 메시지 가져오기
   fetchButton.addEventListener("click", async () => {
     try {
-      const response = await fetch("http://localhost:3000");
-      const data = await response.json();
-      console.log(data);
+      const response = await axios.get("http://localhost:3000");
+      const data = await response.data;
+      // console.log(response.data);
       messageDisplay.textContent = data.message || "메시지가 없습니다";
     } catch (error) {
       console.error("메시지 가져오기 오류:", error);
@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const newMessage = prompt("새로운 메시지를 입력하세요:");
     if (newMessage) {
       try {
-        const response = await fetch("http://localhost:3000", {
-          method: "PUT",
+        const response = await axios.put("http://localhost:3000", {
           headers: {
             "Content-Type": "text/plain",
           },
           body: newMessage,
         });
-        const data = await response.text();
+        const data = await response.data;
+        // console.log(data);
         messageDisplay.textContent = data;
       } catch (error) {
         console.error("메시지 업데이트 오류:", error);
@@ -41,10 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 서버에 메시지 삭제 요청 보내기
   deleteButton.addEventListener("click", async () => {
     try {
-      const response = await fetch("http://localhost:3000", {
-        method: "DELETE",
-      });
-      const data = await response.text();
+      const response = await axios.delete("http://localhost:3000");
+      // console.log(response);
+      const data = await response.data;
       messageDisplay.textContent = data;
     } catch (error) {
       console.error("메시지 삭제 오류:", error);

@@ -30,7 +30,8 @@ app.post(`/`, (req, res) => {
 });
 
 app.put(`/`, (req, res) => {
-  return res.send(`업데이트된 데이터: ${req.body}`);
+  console.log(req.body);
+  return res.send(`업데이트된 데이터: ${req.body.body}`);
 });
 
 app.delete(`/`, (req, res) => {
